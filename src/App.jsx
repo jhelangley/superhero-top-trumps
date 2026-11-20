@@ -21,6 +21,9 @@ function App() {
   // flip card
   const [revealed, setRevealed] = useState(false)
 
+  const playerFaceUp = roundStatus !== 'ready';
+  const computerFaceUp = roundStatus === 'result';
+
   
   const shuffleAll = (array) => {
     const shuffled = [...array]
@@ -107,31 +110,35 @@ function App() {
     getData();
   }, [])
   
-  return (
+    return (
     <>
-<div>
-<button onClick={() => createRound()}>create round</button>
-  <p>Player card: </p>{playerDeck[0]? <Card hero={playerDeck[0]} /> : "no card"}
-  <p>Computer card:</p> {computerDeck[0]? ( <><Card hero={computerDeck[0]} flipped={!revealed} /> 
-  <button onClick={() => setRevealed(true)}>Reveal</button> </>) : (
-  <p>No card</p>)}
-
-</div>
-    <div>
-    <button onClick={() => startRound()}>Start round</button>
-    <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
-    <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
+    <div className="cardPicked">
+      <div>
+        <p>Player card:</p>
+        {playerDeck[0] ? <Card hero={playerDeck[0]} flipped={!playerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
+      </div>
+      <div>
+        <p>Computer card:</p>
+        {computerDeck[0] ? <Card hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
+      </div>
     </div>
+
     <div>
-    <button onClick={() => createDecks(allHeroes)}>Create decks</button>
-    <p>Player deck: {playerDeck.length ?? "0"} cards</p>
-    <ul>
-    {playerDeck.map(hero => <p>{hero.name}</p>)}
-    </ul>
-    <p>Computer deck: {computerDeck.length ?? "0"} cards</p>
-    <ul>
-    {computerDeck.map(hero => <p>{hero.name}</p>)}
-    </ul>
+    {roundStatus === 'ready' && playerDeck.length > 0 && (
+      <button onClick={startRound}>Start round</button>
+    )}
+
+      {/* {roundStatus === 'choosing' && (
+
+      )}
+
+      {roundStatus === 'result' && (
+
+      )} */}
+    </div>
+
+    <div>
+      <button onClick={() => createDecks(allHeroes)}>Create decks</button>
     </div>
     </>
   )
