@@ -36,6 +36,19 @@ function App() {
       setComputerDeck(newDeck.slice(15));
   }
 
+  const createRound = () => {
+    const newPlayerDeck = [...playerDeck];
+    const newComputerDeck = [...computerDeck];
+
+    const playerCard = newPlayerDeck.shift();
+    const computerCard = newComputerDeck.shift();
+
+    newPlayerDeck.push(playerCard)
+    newComputerDeck.push(computerCard)
+
+    setPlayerDeck(newPlayerDeck);
+    setComputerDeck(newComputerDeck);
+  }
 
 
   useEffect(() => {
@@ -51,6 +64,12 @@ function App() {
 
   return (
     <>
+<div>
+<button onClick={() => createRound()}>create round</button>
+  <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
+  <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
+</div>
+    <div>
       <button onClick={() => createDecks(allHeroes)}>Create decks</button>
       <p>Player deck:</p>
       <ul>
@@ -60,6 +79,7 @@ function App() {
       <ul>
         {computerDeck.map(hero => <p>{hero.name}</p>)}
       </ul>
+      </div>
     </>
   )
 }
