@@ -61,12 +61,12 @@
 
 .nxtRound{
     display: flex;
-    margin-top: 5%;
+    margin-top: 5px;
     justify-content: center;
 
 }
 
 .mediumButton{
     width: 200px;
-    height: 50px;
+    height: 40px;
 }
