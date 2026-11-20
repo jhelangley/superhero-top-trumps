@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import Card from './components/Card'
+
 import './App.css'
 
 function App() {
@@ -14,6 +16,9 @@ function App() {
   // game state
   const [currentTurn, setCurrentturn] = useState('player');
   const [roundWinner, setRoundWinner] = useState(null);
+
+  // flip card
+  const [revealed, setRevealed] = useState(false)
 
   
   const shuffleAll = (array) => {
@@ -66,8 +71,11 @@ function App() {
     <>
 <div>
 <button onClick={() => createRound()}>create round</button>
-  <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
-  <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
+  <p>Player card: </p>{playerDeck[0]? <Card hero={playerDeck[0]} /> : "no card"}
+  <p>Computer card:</p> {computerDeck[0]? ( <><Card hero={computerDeck[0]} flipped={!revealed} /> 
+  <button onClick={() => setRevealed(true)}>Reveal</button> </>) : (
+  <p>No card</p>)}
+
 </div>
     <div>
       <button onClick={() => createDecks(allHeroes)}>Create decks</button>
