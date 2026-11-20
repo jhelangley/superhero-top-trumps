@@ -1,0 +1,53 @@
+.card {
+  width: 250px;
+  height: 650px;
+  perspective: 1000px;
+}
+
+.cardFlipped {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.cardFlipped.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cardFront {
+  background: white;
+}
+
+.cardBack {
+  background: linear-gradient(135deg, #b91c1c, #1e3a8a);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+}
+
+.cardFront img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.cardPicked{
+    display: flex;
+    justify-content: center;
+    gap: 25%;
+}
