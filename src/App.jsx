@@ -141,7 +141,9 @@ function App() {
 
       )} */}
     </div>
+    <div className='nxtRound'>
         <p>Round winner: {roundWinner}</p>
+    </div>
     <div className="nxtRound">
       <button className="mediumButton" onClick={() => finishRound()}>Next Round</button>
     </div>
