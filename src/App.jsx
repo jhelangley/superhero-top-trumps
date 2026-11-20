@@ -14,12 +14,17 @@ function App() {
     }
 
     getData();
-  })
+  }, [])
 
   return (
-    <>
-      <div>{allHeroes.map(hero => <p>{hero.name}</p>)}</div>
-    </>
+<div>
+  {allHeroes.map(hero => (
+    <div key={hero.id}>
+      <p>{hero.name}</p>
+      <img src={hero.images.md} alt={hero.name} />
+    </div>
+  ))}
+</div>
   )
 }
 
