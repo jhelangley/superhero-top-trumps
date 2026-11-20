@@ -17,13 +17,12 @@ function App() {
   const [currentTurn, setCurrentTurn] = useState('player');
   const [roundWinner, setRoundWinner] = useState(null);
   const [roundStatus, setRoundStatus] = useState('ready') // this can be 1. ready 2. choosing 3. result 4. over
-
-  // flip card
-  const [revealed, setRevealed] = useState(false)
-
+  const [prevWinner, setPrevWinner] = useState(null);
+  
+  
   const playerFaceUp = roundStatus !== 'ready';
   const computerFaceUp = roundStatus === 'result';
-
+  
   
   const shuffleAll = (array) => {
     const shuffled = [...array]
@@ -53,17 +52,25 @@ function App() {
     const playerCard = playerDeck[0]
     const computerCard = computerDeck[0]
     let winner = null;
-
-    if (playerCard.powerstats[stat] > computerCard.powerstats[stat]) { 
-        winner = 'player'
-      } else if (playerCard.powerstats[stat] < computerCard.powerstats[stat]) {
-        winner = 'computer'
-      } else {
-        winner = 'tie'
-      }
     
-      setRoundWinner(winner);
-      setRoundStatus('result');
+    if (playerCard.powerstats[stat] > computerCard.powerstats[stat]) { 
+      winner = 'player'
+    } else if (playerCard.powerstats[stat] < computerCard.powerstats[stat]) {
+      winner = 'computer'
+    } else {
+      winner = 'tie'
+    }
+    
+    setRoundWinner(winner);
+    setRoundStatus('result');
+  }
+
+  const restartGame = () => {
+    createDecks(allHeroes);
+    setCurrentTurn('player');
+    setRoundWinner(null);
+    setPrevWinner(null);
+    setRoundStatus('ready');
   }
   
   
@@ -80,7 +87,7 @@ function App() {
       newPlayerDeck.push(computerCard)
       setCurrentTurn('player')
     }
-
+    
     if (roundWinner == 'computer') {
       newComputerDeck.push(playerCard)
       newComputerDeck.push(computerCard)
@@ -94,8 +101,16 @@ function App() {
     
     setPlayerDeck(newPlayerDeck);
     setComputerDeck(newComputerDeck);
-
-    setRoundStatus('ready');
+    
+    if (newPlayerDeck.length === 0) {
+      setRoundStatus('over')
+      setPrevWinner('Computer')
+    } else if (newComputerDeck.length === 0) {
+      setRoundStatus('over')
+      setPrevWinner('Player')
+    } else {
+      setRoundStatus('ready');
+    }    
   }
   
   
@@ -109,14 +124,15 @@ function App() {
     }
     
     getData();
-
+    
   }, [])
-
-
-    return (
+  
+  
+  return (
     <>
     
     <div className="cardPicked">
+
       <div>
         <h2 className='gameBack' >Player</h2>
         <h3 className='gameBack'>Number of cards: {playerDeck.length}</h3>
@@ -127,7 +143,6 @@ function App() {
         <h3 className='gameBack'>Number of cards: {computerDeck.length}</h3>
         {computerDeck[0] ? <Card isBot={true} hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
-    </div>
 
     <div >
     {roundStatus === 'ready' && playerDeck.length > 0 && (
@@ -149,6 +164,15 @@ function App() {
       <button className="mediumButton" onClick={() => finishRound()}>Next Round</button>
     </div>
 
+{roundStatus === 'over' && (
+      <div>
+        <p>The game is over, and {prevWinner} won!</p>
+        <button onClick={restartGame}>Start a new game</button>
+      </div>
+    )} 
+    </div>
+    
+    
     </>
   )
 }
