@@ -115,20 +115,21 @@ function App() {
 
     return (
     <>
+    
     <div className="cardPicked">
       <div>
-        <h2>Player</h2>
-        <p>Number of cards: {playerDeck.length}</p>
+        <h2 className='gameBack' >Player</h2>
+        <h3 className='gameBack'>Number of cards: {playerDeck.length}</h3>
         {playerDeck[0] ? <Card isBot={false} hero={playerDeck[0]} flipped={!playerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
-      <div>
-        <h2>Computer</h2>
-        <p>Number of cards: {computerDeck.length}</p>
+      <div >
+        <h2 className='gameBack'>Computer</h2>
+        <h3 className='gameBack'>Number of cards: {computerDeck.length}</h3>
         {computerDeck[0] ? <Card isBot={true} hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
     </div>
 
-    <div>
+    <div >
     {roundStatus === 'ready' && playerDeck.length > 0 && (
       <button onClick={startRound}>Start round</button>
     )}
@@ -142,7 +143,7 @@ function App() {
       )} */}
     </div>
     <div className='nxtRound'>
-        <p>Round winner: {roundWinner}</p>
+        <p className='gameBack'>Round winner: {roundWinner}</p>
     </div>
     <div className="nxtRound">
       <button className="mediumButton" onClick={() => finishRound()}>Next Round</button>

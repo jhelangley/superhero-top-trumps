@@ -70,3 +70,14 @@
     width: 200px;
     height: 40px;
 }
+
+body{
+    background-image: url("/marvelBackground.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.gameBack{
+    background-color: white;
+    border-radius: 4px;
+}
