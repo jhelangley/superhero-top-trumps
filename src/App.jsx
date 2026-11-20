@@ -117,11 +117,13 @@ function App() {
     <>
     <div className="cardPicked">
       <div>
-        <p>Player card:</p>
+        <h2>Player</h2>
+        <p>Number of cards: {playerDeck.length}</p>
         {playerDeck[0] ? <Card isBot={false} hero={playerDeck[0]} flipped={!playerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
       <div>
-        <p>Computer card:</p>
+        <h2>Computer</h2>
+        <p>Number of cards: {computerDeck.length}</p>
         {computerDeck[0] ? <Card isBot={true} hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
     </div>
@@ -139,9 +141,9 @@ function App() {
 
       )} */}
     </div>
-
+        <p>Round winner: {roundWinner}</p>
     <div>
-      <button>Next Round</button>
+      <button onClick={() => finishRound()}>Next Round</button>
     </div>
 
     </>
