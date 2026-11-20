@@ -6,38 +6,91 @@ function App() {
   
   // all state
   const [allHeroes, setAllHeroes] = useState([])
-
+  
   // deck-related state
   const [playerDeck, setPlayerDeck] = useState([])
   const [computerDeck, setComputerDeck] = useState([])
-
+  
   // game state
-  const [currentTurn, setCurrentturn] = useState('player');
+  const [currentTurn, setCurrentTurn] = useState('player');
   const [roundWinner, setRoundWinner] = useState(null);
   const [roundStatus, setRoundStatus] = useState('ready') // this can be 1. ready 2. choosing 3. result 4. over
-
+  
   
   const shuffleAll = (array) => {
     const shuffled = [...array]
     let currentIndex = shuffled.length;
-
+    
     while (currentIndex != 0) {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-
+      
       [shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]]
     }
-
+    
     return shuffled
   }
-
+  
   const createDecks = (array) => {
-      const newDeck = shuffleAll(array).slice(0, 30);
-      setPlayerDeck(newDeck.slice(0, 15));
-      setComputerDeck(newDeck.slice(15));
+    const newDeck = shuffleAll(array).slice(0, 30);
+    setPlayerDeck(newDeck.slice(0, 15));
+    setComputerDeck(newDeck.slice(15));
   }
+  
+  const startRound = () => {
+    setRoundStatus('choosing');
+  }
+  
+  const selectStat = (stat) => {
+    const playerCard = playerDeck[0]
+    const computerCard = computerDeck[0]
+    let winner = null;
 
+    if (playerCard.powerstats[stat] > computerCard.powerstats[stat]) { 
+        winner = 'player'
+      } else if (playerCard.powerstats[stat] < computerCard.powerstats[stat]) {
+        winner = 'computer'
+      } else {
+        winner = 'tie'
+      }
+    
+      setRoundWinner(winner);
+      setRoundStatus('result');
+  }
+  
+  
+  const finishRound = () => {
+    
+    const newPlayerDeck = [...playerDeck];
+    const newComputerDeck = [...computerDeck];
+    
+    const playerCard = newPlayerDeck.shift();
+    const computerCard = newComputerDeck.shift();
+    
+    if (roundWinner == 'player') {
+      newPlayerDeck.push(playerCard)
+      newPlayerDeck.push(computerCard)
+      setCurrentTurn('player')
+    }
 
+    if (roundWinner == 'computer') {
+      newComputerDeck.push(playerCard)
+      newComputerDeck.push(computerCard)
+      setCurrentTurn('player') // CHANGE THIS TO COMPUTER LATER ONCE COMPUTER LOGIC IS IMPLEMENTED
+    }
+    
+    if (roundWinner == 'tie') {
+      newPlayerDeck.push(playerCard)
+      newComputerDeck.push(computerCard)
+    }
+    
+    setPlayerDeck(newPlayerDeck);
+    setComputerDeck(newComputerDeck);
+
+    setRoundStatus('ready');
+  }
+  
+  
   useEffect(() => {
     const getData = async () => {
       const response = await fetch('https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json')
@@ -45,28 +98,28 @@ function App() {
       
       setAllHeroes(data);
     }
-
+    
     getData();
   }, [])
-
+  
   return (
     <>
-<div>
-<button onClick={() => createRound()}>Start round</button>
-  <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
-  <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
-</div>
     <div>
-      <button onClick={() => createDecks(allHeroes)}>Create decks</button>
-      <p>Player deck: {playerDeck.length ?? "0"} cards</p>
-      <ul>
-        {playerDeck.map(hero => <p>{hero.name}</p>)}
-      </ul>
-      <p>Computer deck: {computerDeck.length ?? "0"} cards</p>
-      <ul>
-        {computerDeck.map(hero => <p>{hero.name}</p>)}
-      </ul>
-      </div>
+    <button onClick={() => startRound()}>Start round</button>
+    <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
+    <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
+    </div>
+    <div>
+    <button onClick={() => createDecks(allHeroes)}>Create decks</button>
+    <p>Player deck: {playerDeck.length ?? "0"} cards</p>
+    <ul>
+    {playerDeck.map(hero => <p>{hero.name}</p>)}
+    </ul>
+    <p>Computer deck: {computerDeck.length ?? "0"} cards</p>
+    <ul>
+    {computerDeck.map(hero => <p>{hero.name}</p>)}
+    </ul>
+    </div>
     </>
   )
 }
