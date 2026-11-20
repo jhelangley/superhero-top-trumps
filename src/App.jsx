@@ -127,10 +127,11 @@ function App() {
 
   return (
     <>
+    <div className="gameContainer">
       <div className="cardPicked">
         <div>
           <h2 className="gameBack">Player</h2>
-          <h3 className="gameBack">Number of cards: {playerDeck.length}</h3>
+          <p className="gameBack">Number of cards: {playerDeck.length}</p>
           {playerDeck[0] ? (
             <Card
               isBot={false}
@@ -144,7 +145,7 @@ function App() {
         </div>
         <div>
           <h2 className="gameBack">Computer</h2>
-          <h3 className="gameBack">Number of cards: {computerDeck.length}</h3>
+          <p className="gameBack">Number of cards: {computerDeck.length}</p>
           {computerDeck[0] ? (
             <Card
               isBot={true}
@@ -156,24 +157,23 @@ function App() {
             <p>No card</p>
           )}
         </div>
+      </div>
 
-        <div>
-          {roundStatus === "ready" && playerDeck.length > 0 && (
-            <button onClick={startRound}>Start round</button>
-          )}
+      <div className="gameControls">
+        {roundStatus === "ready" && playerDeck.length > 0 && (
+          <button onClick={startRound}>Start round</button>
+        )}
 
-          {roundStatus === "choosing" && <p>Choose a stat</p>}
+        {roundStatus === "choosing" && <p>Choose a stat</p>}
 
-          {roundStatus === "result" && (
-            <div className="nxtRound">
-              <p>Round winner: {roundWinner}</p>
-              <button className="mediumButton" onClick={finishRound}>
-                Next Round
-              </button>
-            </div>
-          )}
-        </div>
-        
+        {roundStatus === "result" && (
+          <div>
+            <p>Round winner: {roundWinner}</p>
+            <button onClick={finishRound}>
+              Next Round
+            </button>
+          </div>
+        )}
 
         {roundStatus === "over" && (
           <div>
@@ -181,6 +181,7 @@ function App() {
             <button onClick={restartGame}>Start a new game</button>
           </div>
         )}
+      </div>
       </div>
     </>
   );

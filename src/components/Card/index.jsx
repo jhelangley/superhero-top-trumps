@@ -6,7 +6,7 @@ export default function index({isBot, hero, flipped = false, selectStat}) {
       <div className='card'>
         <div className={`cardFlipped ${flipped ? "flipped" : ""}`}>
             <div className='cardFront'>
-            <p>{hero.name}</p>
+            <h3>{hero.name}</h3>
             <img src={hero.images.md} alt={hero.name}/>
             
             {isBot 
@@ -31,7 +31,8 @@ export default function index({isBot, hero, flipped = false, selectStat}) {
         </div>
 
         <div className='cardBack'>
-            <img src="/topTrump.avif" />
+            <span>FLOP<br/>TRUMPS</span>
+            
         </div>
         </div>
       </div>
