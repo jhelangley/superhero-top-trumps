@@ -22,7 +22,7 @@
   inset: 0;
   backface-visibility: hidden;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 0.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -38,6 +38,13 @@
   align-items: center;
   justify-content: center;
   transform: rotateY(180deg);
+}
+
+.cardBack img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .cardFront img {
