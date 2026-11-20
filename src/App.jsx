@@ -156,9 +156,9 @@ function App() {
     )}
     
     {roundStatus === 'result' && (
-      <div>
+      <div className='nxtRound'>
         <p>Round winner: {roundWinner}</p>
-        <button onClick={finishRound}>Next Round</button>
+        <button className="mediumButton" onClick={finishRound}>Next Round</button>
       </div>
     )} 
 
