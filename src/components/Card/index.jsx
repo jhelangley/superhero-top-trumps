@@ -28,11 +28,10 @@ export default function index({isBot, hero, flipped = false, selectStat}) {
               </ul>) 
             }
             
-           
         </div>
 
         <div className='cardBack'>
-            <p>back</p>
+            <img src="/topTrump.avif" />
         </div>
         </div>
       </div>
