@@ -14,6 +14,7 @@ function App() {
   // game state
   const [currentTurn, setCurrentturn] = useState('player');
   const [roundWinner, setRoundWinner] = useState(null);
+  const [roundStatus, setRoundStatus] = useState('ready') // this can be 1. ready 2. choosing 3. result 4. over
 
   
   const shuffleAll = (array) => {
@@ -36,20 +37,6 @@ function App() {
       setComputerDeck(newDeck.slice(15));
   }
 
-  const createRound = () => {
-    const newPlayerDeck = [...playerDeck];
-    const newComputerDeck = [...computerDeck];
-
-    const playerCard = newPlayerDeck.shift();
-    const computerCard = newComputerDeck.shift();
-
-    newPlayerDeck.push(playerCard)
-    newComputerDeck.push(computerCard)
-
-    setPlayerDeck(newPlayerDeck);
-    setComputerDeck(newComputerDeck);
-  }
-
 
   useEffect(() => {
     const getData = async () => {
@@ -65,17 +52,17 @@ function App() {
   return (
     <>
 <div>
-<button onClick={() => createRound()}>create round</button>
+<button onClick={() => createRound()}>Start round</button>
   <p>Player card: {playerDeck[0]?.name ?? "no card"}</p>
   <p>Computer card: {computerDeck[0]?.name ?? "no card"}</p>
 </div>
     <div>
       <button onClick={() => createDecks(allHeroes)}>Create decks</button>
-      <p>Player deck:</p>
+      <p>Player deck: {playerDeck.length ?? "0"} cards</p>
       <ul>
         {playerDeck.map(hero => <p>{hero.name}</p>)}
       </ul>
-      <p>Computer deck:</p>
+      <p>Computer deck: {computerDeck.length ?? "0"} cards</p>
       <ul>
         {computerDeck.map(hero => <p>{hero.name}</p>)}
       </ul>
