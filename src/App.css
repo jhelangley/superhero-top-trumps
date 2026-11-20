@@ -45,3 +45,9 @@
   aspect-ratio: 2 / 3;
   object-fit: cover;
 }
+
+.cardPicked{
+    display: flex;
+    justify-content: center;
+    gap: 25%;
+}

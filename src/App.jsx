@@ -105,13 +105,14 @@ function App() {
       const data = await response.json();
       
       setAllHeroes(data);
-      createDecks(data);
+      createDecks(data)
     }
     
     getData();
-    
+
   }, [])
-  
+
+
     return (
     <>
     <div className="cardPicked">
@@ -140,8 +141,9 @@ function App() {
     </div>
 
     <div>
-      <button onClick={() => createDecks(allHeroes)}>Create decks</button>
+      <button>Next Round</button>
     </div>
+
     </>
   )
 }
