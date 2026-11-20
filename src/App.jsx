@@ -105,9 +105,11 @@ function App() {
       const data = await response.json();
       
       setAllHeroes(data);
+      createDecks(data);
     }
     
     getData();
+    
   }, [])
   
     return (
@@ -115,11 +117,11 @@ function App() {
     <div className="cardPicked">
       <div>
         <p>Player card:</p>
-        {playerDeck[0] ? <Card hero={playerDeck[0]} flipped={!playerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
+        {playerDeck[0] ? <Card isBot={false} hero={playerDeck[0]} flipped={!playerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
       <div>
         <p>Computer card:</p>
-        {computerDeck[0] ? <Card hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
+        {computerDeck[0] ? <Card isBot={true} hero={computerDeck[0]} flipped={!computerFaceUp} selectStat={selectStat} /> : <p>No card</p>}
       </div>
     </div>
 
