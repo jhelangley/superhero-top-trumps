@@ -16,6 +16,7 @@ function App() {
   // game state
   const [currentTurn, setCurrentturn] = useState('player');
   const [roundWinner, setRoundWinner] = useState(null);
+  const [roundStatus, setRoundStatus] = useState('ready') // this can be 1. ready 2. choosing 3. result 4. over
 
   // flip card
   const [revealed, setRevealed] = useState(false)
@@ -39,20 +40,6 @@ function App() {
       const newDeck = shuffleAll(array).slice(0, 30);
       setPlayerDeck(newDeck.slice(0, 15));
       setComputerDeck(newDeck.slice(15));
-  }
-
-  const createRound = () => {
-    const newPlayerDeck = [...playerDeck];
-    const newComputerDeck = [...computerDeck];
-
-    const playerCard = newPlayerDeck.shift();
-    const computerCard = newComputerDeck.shift();
-
-    newPlayerDeck.push(playerCard)
-    newComputerDeck.push(computerCard)
-
-    setPlayerDeck(newPlayerDeck);
-    setComputerDeck(newComputerDeck);
   }
 
 
@@ -79,11 +66,11 @@ function App() {
 </div>
     <div>
       <button onClick={() => createDecks(allHeroes)}>Create decks</button>
-      <p>Player deck:</p>
+      <p>Player deck: {playerDeck.length ?? "0"} cards</p>
       <ul>
         {playerDeck.map(hero => <p>{hero.name}</p>)}
       </ul>
-      <p>Computer deck:</p>
+      <p>Computer deck: {computerDeck.length ?? "0"} cards</p>
       <ul>
         {computerDeck.map(hero => <p>{hero.name}</p>)}
       </ul>
