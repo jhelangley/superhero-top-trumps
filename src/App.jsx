@@ -140,8 +140,8 @@ function App() {
       )} */}
     </div>
 
-    <div>
-      <button>Next Round</button>
+    <div class="nxtRound">
+      <button class="mediumButton">Next Round</button>
     </div>
 
     </>
