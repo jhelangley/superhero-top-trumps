@@ -173,14 +173,7 @@ function App() {
             </div>
           )}
         </div>
-        <div className="nxtRound">
-          <p className="gameBack">Round winner: {roundWinner}</p>
-        </div>
-        <div className="nxtRound">
-          <button className="mediumButton" onClick={() => finishRound()}>
-            Next Round
-          </button>
-        </div>
+        
 
         {roundStatus === "over" && (
           <div>
